@@ -22,8 +22,8 @@ public class intake {
     public double intake1Power = 0;
     private static double left_down = 0.03;
     private static double right_down = 0.97;
-    private static double left_up = 1;
-    private static double right_up = 0;
+    private static double left_up = 0.97;
+    private static double right_up = 0.03;
     private static double block_closed = 0.5;
     private static double block_open = 0.16;
 

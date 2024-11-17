@@ -11,14 +11,13 @@ public class outtake {
     final private double rotateAtIntake = 0.83;
     final private double rotateAtDelivery = 0.04;
     final private double clawOpen = 0.0;
-    final private double clawClosed = 0.24;
+    final private double clawClosed = 0.26;
     final private double bucketAtIntake = 0.0;
     final private double bucketAtDelivery = 0.3;
-    private final int bucketMoveSteps = 10; // Number of steps to complete the movement
+    private final int bucketMoveSteps = 20; // Number of steps to complete the movement
     private int bucketMoveCounter = 0; // Counter for tracking bucket movement steps
     private double bucketIncrement; // Incremental change per step
 
-    public boolean RotationPosAtIntake;
     public boolean isClawOpen;
     public boolean BucketPositionAtIntake;
 
@@ -30,7 +29,6 @@ public class outtake {
         hookRotate = hardwareMap.servo.get("hookRotate");
         claw = hardwareMap.servo.get("claw");
         bucket = hardwareMap.servo.get("bucket");
-        setBucketPos = bucketAtIntake; // Start at intake position
     }
 
     public void update(){
@@ -46,12 +44,10 @@ public class outtake {
         bucket.setPosition(setBucketPos);
     }
 
-    public void hookAtIntake(Boolean intake){
-        if (intake){
-            RotationPosAtIntake = true;
+    public void hookAtIntake(Boolean intake69){
+        if (intake69){
             setHookPos = rotateAtIntake;
         } else{
-            RotationPosAtIntake = false;
             setHookPos = rotateAtDelivery;
         }
     }

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.functions.intake; // Import the Intake class
+import org.firstinspires.ftc.teamcode.functions.intake;
 import org.firstinspires.ftc.teamcode.functions.outtake;
 import org.firstinspires.ftc.teamcode.functions.horiSlides;
 import org.firstinspires.ftc.teamcode.functions.vertSlide;
@@ -64,11 +64,17 @@ public class teleOp extends LinearOpMode {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }
 
+
         // Initialize drive motors
         DcMotor leftFront = hardwareMap.dcMotor.get("leftFront");
         DcMotor leftBack = hardwareMap.dcMotor.get("leftBack");
         DcMotor rightFront = hardwareMap.dcMotor.get("rightFront");
         DcMotor rightBack = hardwareMap.dcMotor.get("rightBack");
+
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
