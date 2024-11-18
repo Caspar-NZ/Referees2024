@@ -280,6 +280,7 @@ public class teleOp extends LinearOpMode {
                     vertSlideIsRunningToPos = true;
                     vertSlidesTarget = verticalSlides.MIN_POSITION +150;
                     readyToGoToDelivery = true;
+                    outtake.bucketAtIntakePos(false);
                 }
                 if (gamepad1.right_bumper && previousGamepad1.right_bumper){
                     outtake.hookAtIntake(true);
@@ -288,6 +289,7 @@ public class teleOp extends LinearOpMode {
                     vertSlideIsRunningToPos = true;
                     vertSlidesTarget = verticalSlides.MIN_POSITION;
                     readyToGoToDelivery = false;
+                    outtake.bucketAtIntakePos(true);
                 }
 
                 if ((gamepad1.dpad_up && !previousGamepad1.dpad_up)||(gamepad2.dpad_up && !previousGamepad2.dpad_up)){

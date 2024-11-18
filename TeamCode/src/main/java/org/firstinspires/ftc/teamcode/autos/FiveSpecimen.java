@@ -125,7 +125,7 @@ public class FiveSpecimen extends LinearOpMode {
                     delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
                     delayedRun(() -> horizontalSlides.setPosition(25), 450);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),1700);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),2000);
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700);
 
                     return false;
@@ -137,7 +137,7 @@ public class FiveSpecimen extends LinearOpMode {
         TrajectoryActionBuilder trajectory4 = drive.actionBuilder(new Pose2d(-34, 60.75, Math.toRadians(270)))
                 .setReversed(false)
                 .waitSeconds(0.55)
-                .strafeToLinearHeading(new Vector2d(3.5, 28), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(3.5, 27), Math.toRadians(270));
 
         Action trajectory4WithParallel = new ParallelAction(
                 trajectory4.build(),
@@ -154,7 +154,7 @@ public class FiveSpecimen extends LinearOpMode {
 
         ////////////////////////////////  section 5    ///////////////////////////////////////
 
-        TrajectoryActionBuilder trajectory5 = drive.actionBuilder(new Pose2d(3.5, 28, Math.toRadians(270)))
+        TrajectoryActionBuilder trajectory5 = drive.actionBuilder(new Pose2d(3.5, 27, Math.toRadians(270)))
                 .setReversed(true)
                 //.waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(0, 28), Math.toRadians(270))
@@ -165,7 +165,7 @@ public class FiveSpecimen extends LinearOpMode {
         Action trajectory5WithParallel = new ParallelAction(
                 trajectory5.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 725), 0);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 700), 0);
                     delayedRun(() -> outtakeSystem.clawOpen(true),500);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 2400);
@@ -198,7 +198,7 @@ public class FiveSpecimen extends LinearOpMode {
                     delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
                     delayedRun(() -> horizontalSlides.setPosition(25), 450);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),1700);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),2000);
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700);
 
                     return false;
@@ -230,7 +230,7 @@ public class FiveSpecimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(0, 27), Math.toRadians(270))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-60, 45), Math.toRadians(250));
+                .strafeToLinearHeading(new Vector2d(-34, 34), Math.toRadians(230));
 
         Action trajectory8WithParallel = new ParallelAction(
                 trajectory8.build(),
@@ -248,6 +248,53 @@ public class FiveSpecimen extends LinearOpMode {
 
         );
 
+        Action tryingToCollect = new Action() {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                long startTime = System.currentTimeMillis();
+                boolean collected = false;
+                String lastColour = "NA";
+                int horizontalPos = 400;
+                boolean horiatmax = false;
+                delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),0);
+                while ((System.currentTimeMillis() - startTime < 1000) && !collected && !horiatmax) { // && !collected && !isStopRequested() && !horiatmax
+                    // Increment the horizontal slides by 10 each loop
+                    horizontalPos += 100;
+                    if (horizontalPos >=1200){
+                        horizontalPos = 1200;
+                        horiatmax = true;
+                    }
+                    horizontalSlides.setPosition(horizontalPos);
+                    horizontalSlides.update();
+
+                    // Check if the item has been collected
+                    if (!"NA".equals(intakeSystem.getDetectedColor()) && !"NA".equals(lastColour)) {
+                        collected = true;
+                        telemetry.addData("Collection Status", "Item Collected!");
+                    }
+                    lastColour = intakeSystem.getDetectedColor();
+                    // Add slight delay to avoid rapid looping causing jitter
+
+                }
+
+
+                if (!collected) {
+                    telemetry.addData("Collection Status", "Failed to collect within time limit.");
+                }
+                telemetry.update();
+                delayedRun(() -> intakeSystem.setSpeed(0,0),0);
+                delayedRun(() -> intakeSystem.intakeRotatedUp(true), 0);
+                delayedRun(() -> horizontalSlides.setPosition(25), 0);
+
+
+                return false;
+            }
+
+
+
+        };
+
         ////////////////////////////////  section 9    ///////////////////////////////////////
 
         TrajectoryActionBuilder trajectory9 = drive.actionBuilder(new Pose2d(-60, 45, Math.toRadians(250)))
@@ -259,17 +306,15 @@ public class FiveSpecimen extends LinearOpMode {
         Action trajectory9WithParallel = new ParallelAction(
                 trajectory9.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    //delayedRun(() -> horizontalSlides.setPosition(1150),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),450);
-                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 450);
-                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),1700);
-                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700);
+
+                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1000);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),1300);
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1300);
 
                     return false;
                 }
@@ -285,6 +330,7 @@ public class FiveSpecimen extends LinearOpMode {
                 trajectory6WithParallel,
                 trajectory7WithParallel,
                 trajectory8WithParallel,
+                tryingToCollect,
                 trajectory9WithParallel
         );
 
