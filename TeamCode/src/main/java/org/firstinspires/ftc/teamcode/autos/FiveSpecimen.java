@@ -230,7 +230,7 @@ public class FiveSpecimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(0, 27), Math.toRadians(270))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-34, 34), Math.toRadians(230));
+                .strafeToLinearHeading(new Vector2d(-44, 34), Math.toRadians(200));
 
         Action trajectory8WithParallel = new ParallelAction(
                 trajectory8.build(),
@@ -258,9 +258,9 @@ public class FiveSpecimen extends LinearOpMode {
                 int horizontalPos = 400;
                 boolean horiatmax = false;
                 delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),0);
-                while ((System.currentTimeMillis() - startTime < 1000) && !collected && !horiatmax) { // && !collected && !isStopRequested() && !horiatmax
+                while ((System.currentTimeMillis() - startTime < 10000) && !collected && !horiatmax) { // && !collected && !isStopRequested() && !horiatmax
                     // Increment the horizontal slides by 10 each loop
-                    horizontalPos += 100;
+                    horizontalPos += 10;
                     if (horizontalPos >=1200){
                         horizontalPos = 1200;
                         horiatmax = true;
@@ -277,7 +277,12 @@ public class FiveSpecimen extends LinearOpMode {
                     // Add slight delay to avoid rapid looping causing jitter
 
                 }
-
+                if (collected) {
+                    telemetry.addData("collected", "yes");
+                }
+                if (horiatmax) {
+                    telemetry.addData("max", "yes");
+                }
 
                 if (!collected) {
                     telemetry.addData("Collection Status", "Failed to collect within time limit.");
@@ -286,6 +291,7 @@ public class FiveSpecimen extends LinearOpMode {
                 delayedRun(() -> intakeSystem.setSpeed(0,0),0);
                 delayedRun(() -> intakeSystem.intakeRotatedUp(true), 0);
                 delayedRun(() -> horizontalSlides.setPosition(25), 0);
+                delayedRun(() -> outtakeSystem.bucketAtIntakePos(true), 0);
 
 
                 return false;
@@ -307,6 +313,7 @@ public class FiveSpecimen extends LinearOpMode {
                 trajectory9.build(),
                 (telemetryPacket) -> { // Run some action
                     //delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    delayedRun(() -> horizontalSlides.setPosition(25),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
