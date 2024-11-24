@@ -75,7 +75,7 @@ public class FiveSpecimenFast extends LinearOpMode {
 
         ////////////////////////////////  section 1    ///////////////////////////////////////
         TrajectoryActionBuilder trajectory1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(-2, 28.75));
+                .strafeTo(new Vector2d(-2, 27));
 
         Action trajectory1WithParallel = new ParallelAction(
                 trajectory1.build(),
@@ -87,16 +87,16 @@ public class FiveSpecimenFast extends LinearOpMode {
 
         ////////////////////////////////  section 2    ///////////////////////////////////////
 
-        TrajectoryActionBuilder trajectory2 = drive.actionBuilder(new Pose2d(-2, 28.75, Math.toRadians(270)))
+        TrajectoryActionBuilder trajectory2 = drive.actionBuilder(new Pose2d(-2, 27, Math.toRadians(270)))
                 .setReversed(true)
-                .waitSeconds(0.5)
+                .waitSeconds(0.2)
                 .strafeToLinearHeading(new Vector2d(-37, 50), Math.toRadians(248));
 
         Action trajectory2WithParallel = new ParallelAction(
                 trajectory2.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 650), 0);
-                    delayedRun(() -> outtakeSystem.clawOpen(true),500);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 700), 0);
+                    delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1200); // from 1400
                     delayedRun(() -> horizontalSlides.setPosition(600), 1300); // from 1500
@@ -111,7 +111,7 @@ public class FiveSpecimenFast extends LinearOpMode {
         ////////////////////////////////  section 3    ///////////////////////////////////////
 
         TrajectoryActionBuilder trajectory3 = drive.actionBuilder(new Pose2d(-37, 50, Math.toRadians(220)))
-                .waitSeconds(0.5) //from0.5
+                .waitSeconds(0.2) //from0.5
                 .setReversed(true)
                 .strafeToLinearHeading(new Vector2d(-34, 60.75), Math.toRadians(270));
 
@@ -124,8 +124,8 @@ public class FiveSpecimenFast extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
                     delayedRun(() -> intakeSystem.setSpeed(0,0),450);
-                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 450);
+                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 350);
+                    delayedRun(() -> horizontalSlides.setPosition(25), 350);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1000); //from1400
                     delayedRun(() -> intakeSystem.setSpeed(0,0),1300); //from2000
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1300); //from1700
@@ -138,14 +138,14 @@ public class FiveSpecimenFast extends LinearOpMode {
 
         TrajectoryActionBuilder trajectory4 = drive.actionBuilder(new Pose2d(-34, 60.75, Math.toRadians(270)))
                 .setReversed(false)
-                .waitSeconds(0.55)
+                .waitSeconds(0.3)
                 .strafeToLinearHeading(new Vector2d(3.5, 27), Math.toRadians(270));
 
         Action trajectory4WithParallel = new ParallelAction(
                 trajectory4.build(),
                 (telemetryPacket) -> { // Run some action
                     delayedRun(() -> outtakeSystem.clawOpen(false),0);
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 450), 500);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 500), 500);
                     delayedRun(() -> outtakeSystem.hookAtIntake(false),550);
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(true),800);
 
@@ -160,7 +160,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                 .setReversed(true)
                 //.waitSeconds(0.5)
                 //.strafeToLinearHeading(new Vector2d(0, 28), Math.toRadians(270)) removed for fc
-                //.waitSeconds(0.5)
+                .waitSeconds(0.2)
                 .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-47, 50), Math.toRadians(250));
 
@@ -168,11 +168,11 @@ public class FiveSpecimenFast extends LinearOpMode {
                 trajectory5.build(),
                 (telemetryPacket) -> { // Run some action
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 700), 0);
-                    delayedRun(() -> outtakeSystem.clawOpen(true),500);
+                    delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
-                    delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1400); //subtracted 1000
-                    delayedRun(() -> horizontalSlides.setPosition(600), 1500);//subtracted 1000
-                    delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1500);//subtracted 1000
+                    delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1600); //subtracted 1000
+                    delayedRun(() -> horizontalSlides.setPosition(600), 1800);//subtracted 1000
+                    delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1800);//subtracted 1000
 
                     return false;
                 }
