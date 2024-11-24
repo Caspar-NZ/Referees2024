@@ -98,7 +98,7 @@ public class basicTeleOp extends LinearOpMode {
 
         // Initialize outtake
         outtake outtake = new outtake(hardwareMap);
-        outtake.clawOpen(false);
+        outtake.clawOpen(true);
         outtake.hookAtIntake(true);
         outtake.bucketAtIntakePos(true);
         outtake.update();
@@ -376,18 +376,22 @@ public class basicTeleOp extends LinearOpMode {
                 if (specimenRunTimer && specimenDelivTimer +0.5 <getRuntime()){
                     outtake.clawOpen(false);
                 }
-                if (specimenRunTimer && specimenDelivTimer +0.7 <getRuntime()){
+                if (specimenRunTimer && specimenDelivTimer +0.9 <getRuntime()){
                     outtake.clawOpen(false);
                     outtake.hookAtIntake(true);
                     vertSlideIsRunningToPos = true;
                     vertSlidesTarget = verticalSlides.MIN_POSITION;
                 }
-                if (specimenRunTimer && specimenDelivTimer +0.9 <getRuntime()){
+                if (specimenRunTimer && specimenDelivTimer +1.8 <getRuntime()){
                     outtake.clawOpen(true);
                     specimenRunTimer = false;
                 }
 
 
+            }
+
+            if (currentGamepad1.x){
+                outtake.clawOpen(false);
             }
 
 
