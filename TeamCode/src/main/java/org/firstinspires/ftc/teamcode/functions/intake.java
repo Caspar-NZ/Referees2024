@@ -20,8 +20,8 @@ public class intake {
     public double blockPos;
     public double intake0Power = 0;
     public double intake1Power = 0;
-    private static double left_down = 0.03;
-    private static double right_down = 0.97;
+    private static double left_down = 0.04;  //0.03
+    private static double right_down = 0.96;  //0.97
     private static double left_up = 0.97;
     private static double right_up = 0.03;
     private static double block_closed = 0.5;

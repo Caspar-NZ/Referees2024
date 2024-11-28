@@ -3,8 +3,12 @@ package org.firstinspires.ftc.teamcode.functions;
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
 import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class horiSlides {
 
@@ -13,10 +17,11 @@ public class horiSlides {
     public static final int MIN_POSITION = 0;
     private static final double DEADZONE = 5; // Small threshold around target position
     private static final double MAX_POWER = 1; // Max power to prevent hitting stops
+    private static final double MAX_CURRENT = 3.0; // Max current limit in amps
 
     // Define motors and PID controller
-    private DcMotor leftHori;
-    private DcMotor rightHori;
+    private DcMotorEx leftHori;
+    private DcMotorEx rightHori;
     private double targetPosition = 0;
 
     // PID Coefficients for controlling position
@@ -24,8 +29,8 @@ public class horiSlides {
 
     // Constructor for initialising motors and PID controller
     public horiSlides(HardwareMap hardwareMap) {
-        leftHori = hardwareMap.get(DcMotor.class, "leftHori");
-        rightHori = hardwareMap.get(DcMotor.class, "rightHori");
+        leftHori = hardwareMap.get(DcMotorEx.class, "leftHori");
+        rightHori = hardwareMap.get(DcMotorEx.class, "rightHori");
 
         // Reverse direction for left motor
         rightHori.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -70,9 +75,26 @@ public class horiSlides {
         powerLeft = Math.max(-MAX_POWER, Math.min(powerLeft, MAX_POWER));
         powerRight = Math.max(-MAX_POWER, Math.min(powerRight, MAX_POWER));
 
+        // Monitor and limit current
+        powerLeft = limitCurrent(leftHori, powerLeft);
+        powerRight = limitCurrent(rightHori, powerRight);
+
         // Set motor powers
         leftHori.setPower(-powerLeft);
         rightHori.setPower(-powerRight);
+    }
+
+    // Method to limit motor current draw
+    private double limitCurrent(DcMotorEx motor, double power) {
+        double current = motor.getCurrent(CurrentUnit.AMPS);
+
+        // If current exceeds the limit, scale down power proportionally
+        if (current > MAX_CURRENT) {
+            double scaleFactor = MAX_CURRENT / current;
+            power *= scaleFactor;
+        }
+
+        return power;
     }
 
     // Get current position of the slides (average of both motors for stability)
