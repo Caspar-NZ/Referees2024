@@ -11,10 +11,10 @@ public class outtake {
     final private double rotateAtIntake = 0.83;
     final private double rotateAtDelivery = 0.04;
     final private double clawOpen = 0.0;
-    final private double clawClosed = 0.26;
+    final private double clawClosed = 0.27;
     final private double bucketAtIntake = 0.0;
     final private double bucketAtDelivery = 0.3;
-    private final int bucketMoveSteps = 20; // Number of steps to complete the movement
+    private final int bucketMoveSteps = 6; // Number of steps to complete the movement
     private int bucketMoveCounter = 0; // Counter for tracking bucket movement steps
     private double bucketIncrement; // Incremental change per step
 
