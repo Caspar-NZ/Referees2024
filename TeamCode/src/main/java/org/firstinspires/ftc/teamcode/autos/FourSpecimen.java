@@ -75,7 +75,7 @@ public class FourSpecimen extends LinearOpMode {
 
         ////////////////////////////////  section 1    ///////////////////////////////////////
         TrajectoryActionBuilder trajectory1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(-2.5, 26.25));
+                .strafeTo(new Vector2d(-1.5, 26));
 
         Action trajectory1WithParallel = new ParallelAction(
                 trajectory1.build(),
@@ -87,7 +87,7 @@ public class FourSpecimen extends LinearOpMode {
 
         ////////////////////////////////  section 2    ///////////////////////////////////////
 
-        TrajectoryActionBuilder trajectory2 = drive.actionBuilder(new Pose2d(-2.5, 26.25, Math.toRadians(270)))
+        TrajectoryActionBuilder trajectory2 = drive.actionBuilder(new Pose2d(-1.5, 26, Math.toRadians(270)))
                 .setReversed(true)
                 .waitSeconds(0.2)
                 .strafeTo(new Vector2d(-2.5, 34))
@@ -99,8 +99,8 @@ public class FourSpecimen extends LinearOpMode {
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 720), 0);
                     delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
-                    delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1200+300); // from 1400
-                    delayedRun(() -> horizontalSlides.setPosition(600), 1300+300); // from 1500
+                    delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1200+500); // from 1400
+                    delayedRun(() -> horizontalSlides.setPosition(600,1), 1300+500); // from 1500
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1200); //from 1400
 
                     return false;
@@ -121,14 +121,14 @@ public class FourSpecimen extends LinearOpMode {
         Action trajectory3WithParallel = new ParallelAction(
                 trajectory3.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    delayedRun(() -> horizontalSlides.setPosition(1150, 0.7),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),450);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),450+300);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(true), 350);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 350);
+                    delayedRun(() -> horizontalSlides.setPosition(25, 1), 350+300);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1000); //from1400
                     delayedRun(() -> intakeSystem.setSpeed(0,0),1300); //from2000
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1300); //from1700
@@ -141,16 +141,16 @@ public class FourSpecimen extends LinearOpMode {
 
         TrajectoryActionBuilder trajectory4 = drive.actionBuilder(new Pose2d(-34, 62, Math.toRadians(270)))
                 .setReversed(false)
-                .waitSeconds(0.3)
-                .strafeToLinearHeading(new Vector2d(2.5, 26.50), Math.toRadians(270));
+                .waitSeconds(0.3+0.5)
+                .strafeToLinearHeading(new Vector2d(3.5, 26.50), Math.toRadians(270));
 
         Action trajectory4WithParallel = new ParallelAction(
                 trajectory4.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> outtakeSystem.clawOpen(false),0);
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 500), 500);
-                    delayedRun(() -> outtakeSystem.hookAtIntake(false),550);
-                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(true),800);
+                    delayedRun(() -> outtakeSystem.clawOpen(false),0+500);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 500), 500+500);
+                    delayedRun(() -> outtakeSystem.hookAtIntake(false),550+500);
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(true),800+500);
 
 
                     return false;
@@ -159,7 +159,7 @@ public class FourSpecimen extends LinearOpMode {
 
         ////////////////////////////////  section 5    ///////////////////////////////////////
 
-        TrajectoryActionBuilder trajectory5 = drive.actionBuilder(new Pose2d(2.5, 26.50, Math.toRadians(270)))
+        TrajectoryActionBuilder trajectory5 = drive.actionBuilder(new Pose2d(3.5, 26.50, Math.toRadians(270)))
                 .setReversed(true)
                 //.waitSeconds(0.5)
                 //.strafeToLinearHeading(new Vector2d(0, 28), Math.toRadians(270)) removed for fc
@@ -174,7 +174,7 @@ public class FourSpecimen extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1600); //subtracted 1000
-                    delayedRun(() -> horizontalSlides.setPosition(600), 1800);//subtracted 1000
+                    delayedRun(() -> horizontalSlides.setPosition(600, 1), 1800);//subtracted 1000
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1800);//subtracted 1000
 
                     return false;
@@ -186,7 +186,7 @@ public class FourSpecimen extends LinearOpMode {
         ////////////////////////////////  section 6    ///////////////////////////////////////
 
         TrajectoryActionBuilder trajectory6 = drive.actionBuilder(new Pose2d(-47, 50, Math.toRadians(249)))
-                .waitSeconds(0.5)
+                .waitSeconds(0.5+0.8)
                 .setReversed(true)
                 .strafeToLinearHeading(new Vector2d(-33, 56), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-33, 61), Math.toRadians(270));
@@ -194,17 +194,17 @@ public class FourSpecimen extends LinearOpMode {
         Action trajectory6WithParallel = new ParallelAction(
                 trajectory6.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    delayedRun(() -> horizontalSlides.setPosition(1150,0.5),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),450);
-                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 450);
-                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1400);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),2000);
-                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),450+1200);
+                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450+1200);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1), 450+1200);
+                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1600+1200);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),2000+1200);
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700+1400);
 
                     return false;
                 }
@@ -214,16 +214,16 @@ public class FourSpecimen extends LinearOpMode {
 
         TrajectoryActionBuilder trajectory7 = drive.actionBuilder(new Pose2d(-33, 61, Math.toRadians(270)))
                 .setReversed(false)
-                .waitSeconds(0.55)
+                .waitSeconds(0.55+0.5)
                 .strafeToLinearHeading(new Vector2d(8, 26.50), Math.toRadians(270));
 
         Action trajectory7WithParallel = new ParallelAction(
                 trajectory7.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> outtakeSystem.clawOpen(false),0);
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 450), 500);
-                    delayedRun(() -> outtakeSystem.hookAtIntake(false),550);
-                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(true),800);
+                    delayedRun(() -> outtakeSystem.clawOpen(false),0+500);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 450), 500+500);
+                    delayedRun(() -> outtakeSystem.hookAtIntake(false),550+500);
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(true),800+500);
                     return false;
                 }
         );
@@ -244,9 +244,38 @@ public class FourSpecimen extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),500);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 3400);
-                    delayedRun(() -> horizontalSlides.setPosition(400), 3600);
+                    delayedRun(() -> horizontalSlides.setPosition(400,1), 3600);
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),3600);
 
+                    return false;
+                }
+
+
+        );
+
+        ////////////////////////////////  section 8s    ///////////////////////////////////////
+
+        TrajectoryActionBuilder trajectory8s = drive.actionBuilder(new Pose2d(8, 26.50, Math.toRadians(270)))
+                .setReversed(true)
+                .strafeToLinearHeading(new Vector2d(0, 27), Math.toRadians(270))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-33, 56), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-33, 62), Math.toRadians(270));
+
+        Action trajectory8sWithParallel = new ParallelAction(
+                trajectory8s.build(),
+                (telemetryPacket) -> { // Run some action
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 720), 0);
+                    delayedRun(() -> outtakeSystem.clawOpen(true),500);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
+                    delayedRun(() -> outtakeSystem.clawOpen(false),800);
+                    delayedRun(() -> intakeSystem.intakeRotatedUp(true), 1200);
+                    delayedRun(() -> outtakeSystem.hookAtIntake(true), 1200);
+                    delayedRun(() -> outtakeSystem.clawOpen(true),1400);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1), 1200);
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),1200);
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(true), 1200);
                     return false;
                 }
 
@@ -270,7 +299,7 @@ public class FourSpecimen extends LinearOpMode {
                         horizontalPos = 1200;
                         horiatmax = true;
                     }
-                    horizontalSlides.setPosition(horizontalPos);
+                    horizontalSlides.setPosition(horizontalPos,0.6);
                     horizontalSlides.update();
 
                     // Check if the item has been collected
@@ -295,7 +324,7 @@ public class FourSpecimen extends LinearOpMode {
                 telemetry.update();
                 delayedRun(() -> intakeSystem.setSpeed(0,0),0);
                 delayedRun(() -> intakeSystem.intakeRotatedUp(true), 0);
-                delayedRun(() -> horizontalSlides.setPosition(25), 0);
+                delayedRun(() -> horizontalSlides.setPosition(25,1), 0);
                 delayedRun(() -> outtakeSystem.bucketAtIntakePos(true), 0);
 
 
@@ -309,24 +338,24 @@ public class FourSpecimen extends LinearOpMode {
         ////////////////////////////////  section 9    ///////////////////////////////////////
 
         TrajectoryActionBuilder trajectory9 = drive.actionBuilder(new Pose2d(-60, 45, Math.toRadians(250)))
-                .waitSeconds(0.8)
+                .waitSeconds(1.4)//0.8
                 .setReversed(true)
-                .strafeToLinearHeading(new Vector2d(-33, 56), Math.toRadians(270))
+                //.strafeToLinearHeading(new Vector2d(-33, 56), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-33, 62), Math.toRadians(270));
 
         Action trajectory9WithParallel = new ParallelAction(
                 trajectory9.build(),
                 (telemetryPacket) -> { // Run some action
                     //delayedRun(() -> horizontalSlides.setPosition(1150),0);
-                    delayedRun(() -> horizontalSlides.setPosition(25),0);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
 
-                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1000);
-                    delayedRun(() -> intakeSystem.setSpeed(0,0),1300);
-                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1300);
+                    delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1300);//1000
+                    delayedRun(() -> intakeSystem.setSpeed(0,0),1600);//1300
+                    delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1600);//1300
 
                     return false;
                 }
@@ -355,18 +384,16 @@ public class FourSpecimen extends LinearOpMode {
         TrajectoryActionBuilder trajectory11 = drive.actionBuilder(new Pose2d(12, 27, Math.toRadians(270)))
                 .setReversed(true)
                 .strafeToLinearHeading(new Vector2d(0, 27), Math.toRadians(270))
-                .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-44, 34), Math.toRadians(200));
+                .strafeToLinearHeading(new Vector2d(-2.5, 27), Math.toRadians(270));
 
         Action trajectory11WithParallel = new ParallelAction(
                 trajectory11.build(),
                 (telemetryPacket) -> { // Run some action
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION + 720), 0);
                     delayedRun(() -> outtakeSystem.clawOpen(true),500);
-                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
+                    delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650+400);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 3400);
-                    delayedRun(() -> horizontalSlides.setPosition(400), 3600);
+                    delayedRun(() -> horizontalSlides.setPosition(400,1), 3600);
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),3600);
 
                     return false;
@@ -384,9 +411,10 @@ public class FourSpecimen extends LinearOpMode {
                 trajectory5WithParallel,
                 trajectory6WithParallel,
                 trajectory7WithParallel,
-                trajectory8WithParallel,
-                tryingToCollect,
-                trajectory9WithParallel,
+                trajectory8sWithParallel, //substitute
+                //trajectory8WithParallel,
+                //tryingToCollect,
+                //trajectory9WithParallel,
                 trajectory10WithParallel,
                 trajectory11WithParallel
         );

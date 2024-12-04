@@ -120,6 +120,40 @@ public class basicTeleOp extends LinearOpMode {
 
 
         while (!isStarted() && !isStopRequested()) {
+
+            if (Math.abs(currentGamepad2.left_stick_y) > 0.02) {
+                vertSlideIsRunningToPos = false;
+            } else {
+                vertSlideIsRunningToPos = true;
+            }
+            if (vertSlideIsRunningToPos){
+                verticalSlides.setPosition(vertSlidesTarget);
+            } else{
+                /////vert manual control
+                double currentPositionvert = verticalSlides.getCurrentPosition();
+                vertSlidesTarget = currentPositionvert + -currentGamepad2.left_stick_y * MAX_INPUT_SCALING;
+                //vertSlidesTarget = Math.max(vertSlide.MIN_POSITION, Math.min(vertSlidesTarget, vertSlide.MAX_POSITION));
+                verticalSlides.setPosition(vertSlidesTarget);
+            }
+
+            if ((Math.abs(currentGamepad2.right_stick_y) > 0.02) && !runningHomeHori || currentGamepad2.right_stick_button) {
+                horiSlideIsRunningToPos = false;
+                runningHomeHori=false;
+            }
+            if (horiSlideIsRunningToPos || runningHomeHori) {
+                horizontalSlides.setPosition(horiSlidesTarget,1);
+            } else {
+                /////hori manual control
+                double currentPosition = horizontalSlides.getCurrentPosition();
+                double goingOutInput = Math.max(-currentGamepad2.right_stick_y, currentGamepad1.right_trigger);
+                double goingInInput = Math.max(currentGamepad2.right_stick_y, currentGamepad1.left_trigger);
+                double movementInput = (goingInInput > 0) ? -goingInInput : goingOutInput;
+                double newTargetPosition = currentPosition + (movementInput * MAX_INPUT_SCALING);
+                //newTargetPosition = Math.max(horiSlides.MIN_POSITION, Math.min(newTargetPosition, horiSlides.MAX_POSITION));
+                horizontalSlides.setPosition(newTargetPosition,1);
+            }
+
+
             previousGamepad1.copy(currentGamepad1);
             previousGamepad2.copy(currentGamepad2);
 
@@ -225,7 +259,7 @@ public class basicTeleOp extends LinearOpMode {
                 runningHomeHori=false;
             }
             if (horiSlideIsRunningToPos || runningHomeHori) {
-                horizontalSlides.setPosition(horiSlidesTarget);
+                horizontalSlides.setPosition(horiSlidesTarget,1);
             } else {
                 /////hori manual control
                 double currentPosition = horizontalSlides.getCurrentPosition();
@@ -234,7 +268,7 @@ public class basicTeleOp extends LinearOpMode {
                 double movementInput = (goingInInput > 0) ? -goingInInput : goingOutInput;
                 double newTargetPosition = currentPosition + (movementInput * MAX_INPUT_SCALING);
                 newTargetPosition = Math.max(horiSlides.MIN_POSITION, Math.min(newTargetPosition, horiSlides.MAX_POSITION));
-                horizontalSlides.setPosition(newTargetPosition);
+                horizontalSlides.setPosition(newTargetPosition,1);
             }
 
 
@@ -250,7 +284,7 @@ public class basicTeleOp extends LinearOpMode {
 
             if ((currentGamepad1.b && !previousGamepad1.b) || (currentGamepad2.b && !previousGamepad2.b)) {
                 intake.setSpeed(0.0, 0.0);
-                horizontalSlides.setPosition(0);
+                horizontalSlides.setPosition(0,1);
                 intake.intakeRotatedUp(true);
                 outtake.bucketAtIntakePos(true);
                 intakeRotationUp = true;

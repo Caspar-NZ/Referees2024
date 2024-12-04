@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.functions.vertSlide;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+/*
 @Config
 @Autonomous(name = "FiveSpecimen", group = "Autonomous")
 public class FiveSpecimen extends LinearOpMode {
@@ -397,3 +397,4 @@ public class FiveSpecimen extends LinearOpMode {
         }
     }
 }
+*/

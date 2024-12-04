@@ -100,7 +100,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1200+300); // from 1400
-                    delayedRun(() -> horizontalSlides.setPosition(600), 1300+300); // from 1500
+                    delayedRun(() -> horizontalSlides.setPosition(600,1), 1300+300); // from 1500
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1200); //from 1400
 
                     return false;
@@ -121,14 +121,14 @@ public class FiveSpecimenFast extends LinearOpMode {
         Action trajectory3WithParallel = new ParallelAction(
                 trajectory3.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    delayedRun(() -> horizontalSlides.setPosition(1150,1),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
                     delayedRun(() -> intakeSystem.setSpeed(0,0),450);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(true), 350);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 350);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1), 350);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1000); //from1400
                     delayedRun(() -> intakeSystem.setSpeed(0,0),1300); //from2000
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1300); //from1700
@@ -174,7 +174,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),250);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 1600); //subtracted 1000
-                    delayedRun(() -> horizontalSlides.setPosition(600), 1800);//subtracted 1000
+                    delayedRun(() -> horizontalSlides.setPosition(600,1), 1800);//subtracted 1000
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),1800);//subtracted 1000
 
                     return false;
@@ -194,14 +194,14 @@ public class FiveSpecimenFast extends LinearOpMode {
         Action trajectory6WithParallel = new ParallelAction(
                 trajectory6.build(),
                 (telemetryPacket) -> { // Run some action
-                    delayedRun(() -> horizontalSlides.setPosition(1150),0);
+                    delayedRun(() -> horizontalSlides.setPosition(1150,1),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
                     delayedRun(() -> outtakeSystem.clawOpen(true),400);
                     delayedRun(() -> intakeSystem.setSpeed(0,0),450);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(true), 450);
-                    delayedRun(() -> horizontalSlides.setPosition(25), 450);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1), 450);
                     delayedRun(() -> intakeSystem.setSpeed(0.7,-0.45),1400);
                     delayedRun(() -> intakeSystem.setSpeed(0,0),2000);
                     delayedRun(() -> outtakeSystem.bucketAtIntakePos(false), 1700);
@@ -244,7 +244,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),500);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 3400);
-                    delayedRun(() -> horizontalSlides.setPosition(400), 3600);
+                    delayedRun(() -> horizontalSlides.setPosition(400,1), 3600);
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),3600);
 
                     return false;
@@ -270,7 +270,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                         horizontalPos = 1200;
                         horiatmax = true;
                     }
-                    horizontalSlides.setPosition(horizontalPos);
+                    horizontalSlides.setPosition(horizontalPos,1);
                     horizontalSlides.update();
 
                     // Check if the item has been collected
@@ -295,7 +295,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                 telemetry.update();
                 delayedRun(() -> intakeSystem.setSpeed(0,0),0);
                 delayedRun(() -> intakeSystem.intakeRotatedUp(true), 0);
-                delayedRun(() -> horizontalSlides.setPosition(25), 0);
+                delayedRun(() -> horizontalSlides.setPosition(25,1), 0);
                 delayedRun(() -> outtakeSystem.bucketAtIntakePos(true), 0);
 
 
@@ -318,7 +318,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                 trajectory9.build(),
                 (telemetryPacket) -> { // Run some action
                     //delayedRun(() -> horizontalSlides.setPosition(1150),0);
-                    delayedRun(() -> horizontalSlides.setPosition(25),0);
+                    delayedRun(() -> horizontalSlides.setPosition(25,1),0);
                     delayedRun(() -> outtakeSystem.clawOpen(false), 0);
                     delayedRun(() -> intakeSystem.open(false), 0);
                     delayedRun(() -> outtakeSystem.hookAtIntake(true),100);
@@ -366,7 +366,7 @@ public class FiveSpecimenFast extends LinearOpMode {
                     delayedRun(() -> outtakeSystem.clawOpen(true),500);
                     delayedRun(() -> verticalSlides.setPosition(verticalSlides.MIN_POSITION), 650);
                     delayedRun(() -> intakeSystem.intakeRotatedUp(false), 3400);
-                    delayedRun(() -> horizontalSlides.setPosition(400), 3600);
+                    delayedRun(() -> horizontalSlides.setPosition(400,1), 3600);
                     delayedRun(() -> intakeSystem.setSpeed(-1.0,1.0),3600);
 
                     return false;

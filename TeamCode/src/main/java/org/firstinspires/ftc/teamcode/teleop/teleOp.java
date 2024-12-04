@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.functions.horiSlides;
 import org.firstinspires.ftc.teamcode.functions.vertSlide;
 
 import java.util.List;
-
+/*
 @TeleOp
 public class teleOp extends LinearOpMode {
 
@@ -366,3 +366,4 @@ public class teleOp extends LinearOpMode {
         }
     }
 }
+*/
