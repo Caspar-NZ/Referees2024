@@ -25,8 +25,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Config
-@Autonomous(name = "FiveSpecimenFast", group = "Autonomous")
-public class FiveSpecimenFast extends LinearOpMode {
+@Autonomous(name = "FourSpecimen", group = "Autonomous")
+public class FourSpecimen extends LinearOpMode {
 
     private Thread asyncUpdatesThread;
     private volatile boolean asyncThread = true;

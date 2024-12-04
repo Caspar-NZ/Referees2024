@@ -238,7 +238,7 @@ public class basicTeleOp extends LinearOpMode {
             }
 
 
-            if ((currentGamepad1.a && !previousGamepad1.a) ||(currentGamepad2.a && !previousGamepad2.a)) {
+            if ((currentGamepad1.a && !previousGamepad1.a) ||(currentGamepad2.left_bumper && !previousGamepad2.left_bumper)) {
                 if (blocking){
                     blocking = false;
                     intake.open(true);
